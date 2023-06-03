@@ -10,11 +10,14 @@
     <main>
       <section class="add-item">
         <h2>ADD NEW ITEM</h2>
+        <h3>If you want to add, click ADD button or press the ENTER key</h3>
+        <h3>If you want to delete, click DEL button or press the DEL key</h3>
         <input id="input" type="text" name="languages" />
-        <input id="btn" type="button" value="ADD" />
+        <input id="btn__add" type="button" value="ADD" />
+        <input id="btn__del" type="button" value="DEL" />
       </section>
 
-      <section class="item-list">
+      <section class="item-list" style="display: none">
         <h2>ITEM LIST</h2>
 
         <ul>
@@ -29,23 +32,52 @@
       </section>
     </main>
     <script>
-        const addItem = document.querySelector("#btn")
+      //  ************  add area
+        const addItem = document.querySelector("#btn__add")
         const ulItem = document.createElement("ul")
         document.querySelector(".item-list").before(ulItem)
-
         addItem.addEventListener("click", (e) => {
             if(!input.value){
-                alert("some attention words")
+                // alert("some attention words")
+                document.querySelector("#input").focus()
             } else {
                 const input = document.querySelector("#input")
                 const liItem = document.createElement("li")
                 ulItem.appendChild(liItem)
                 const textLi = document.createTextNode(input.value)
-                li.appendChild(textLi)
+                // console.log(textLi);
+                liItem.appendChild(textLi)
                 input.value = ""
                 input.focus()
             }
         })
+      //  ************  add area
+
+      //  ************  del area
+        const delItem = document.querySelector("#btn__del")
+        const itemForDel = document.querySelector(".add-item").after(ulItem)
+        delItem.addEventListener("click", (e) =>{
+          if (!ulItem.lastChild) {
+            document.querySelector("#input").focus()
+          } else {
+            console.log("deleted item : ", ulItem.lastChild);
+            ulItem.lastChild.remove()
+          }
+        })
+      //  ************  del area
+
+      // *************** keyboard entery area
+      input.addEventListener("keyup", (e) => {
+       switch(e.key){
+        case "Enter":
+          addItem.click()
+          break;
+        case "Delete":
+          delItem.click()
+          break;
+       }
+      })
+      // *************** keyboard entery area
     </script>
 </body>
 </html>
